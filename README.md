@@ -1,6 +1,3 @@
-# emotiv
-Should add something useful to this.
-
 # setup guide
 * Create VS C++ win32 console project
 * Right click project > properties > general
