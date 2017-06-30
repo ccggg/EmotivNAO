@@ -16,3 +16,8 @@
 Include is in emotiv-sdk > include
 
 win32 is in emotiv-sdk > lib > win32
+
+# todo list
+* Take input of the emotiv 'commands': clench, wink, blink, etc.
+* send command to nao robot.
+* robot will output what you're doing.
