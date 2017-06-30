@@ -19,9 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{D3D5EDB0-53C2-473D-9B73-71299614607C}</ProjectGuid>
+    <ProjectGuid>{32AF2D35-7781-4B55-B26B-C001C8DC514D}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>Demo</RootNamespace>
+    <RootNamespace>EmotivNAO</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -71,7 +71,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>../../../emotiv-sdk/bin/win32</OutDir>
+    <OutDir>..\..\..\emotiv-sdk\bin\win32</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -89,14 +89,13 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <SDLCheck>
-      </SDLCheck>
-      <AdditionalIncludeDirectories>../../../emotiv-sdk/include</AdditionalIncludeDirectories>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>..\..\..\emotiv-sdk\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>../../../emotiv-sdk/lib/win32;</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\emotiv-sdk\lib\win32</AdditionalLibraryDirectories>
       <AdditionalDependencies>edk.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
