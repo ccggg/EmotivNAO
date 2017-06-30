@@ -1,13 +1,15 @@
 # setup guide
-* Create VS C++ win32 console project
+* Create VS C++ win32 console project in the **src** folder
+* Delete the resources, headers and sources folders.
+* Make a new C++ class in the project and call in main, delete the header file.
 * Right click project > properties > general
-* Add **../../../include** into Additional Include Directories
+* Add **../../../emotiv-sdk/bin/win32** into Output Directory
+* In properties go to C/C++ > general
+* Add **../../../emotiv-sdk/include** into Additional Include Directories
 * In properties go to linker > general
 * Add **../../../lib/win32;** into Additional Library Directories
 * In properties go to linker > input
 * Remove everything in Additional Dependencies and replace with **edk.lib**
-* ???
-* profit
 
 **Note: This is for setting up for a project within the SDK itself, if you create a project outside the SDK you will need to change the directories.**
 
