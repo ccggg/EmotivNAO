@@ -29,6 +29,7 @@
 #include "Iedk.h"
 #include "IedkErrorCode.h"
 
+using namespace std;
 
 #ifdef __cplusplus
 extern "C"
@@ -55,17 +56,17 @@ extern "C"
 		std::string filename = "emostate_logger.csv";
 		try {
 
-			std::cout << "==================================================================="
-				<< std::endl;
-			std::cout << "Example to show how to log the EmoState from EmoEngine/EmoComposer."
-				<< std::endl;
-			std::cout << "==================================================================="
-				<< std::endl;
-			std::cout << "Press '1' to start and connect to the EmoEngine                    "
-				<< std::endl;
-			std::cout << "Press '2' to connect to the EmoComposer                            "
-				<< std::endl;
-			std::cout << ">> ";
+			cout << "==================================================================="
+				<< endl;
+			cout << "Example to show how to log the EmoState from EmoEngine/EmoComposer."
+				<< endl;
+			cout << "==================================================================="
+				<< endl;
+			cout << "Press '1' to start and connect to the EmoEngine                    "
+				<< endl;
+			cout << "Press '2' to connect to the EmoComposer                            "
+				<< endl;
+			cout << ">> ";
 
 			std::getline(std::cin, input, '\n');
 			option = atoi(input.c_str());
@@ -124,9 +125,8 @@ extern "C"
 						const float timestamp = IS_GetTimeFromStart(eState);
 
 						std::cout << timestamp << ": " << "New EmoState from user " << userID << std::endl;
-
 						logEmoState(ofs, userID, eState, writeHeader);
-						writeHeader = false;
+						writeHeader = true;
 					}
 				}
 				else if (state != EDK_NO_EVENT) {
