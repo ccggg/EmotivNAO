@@ -5,21 +5,25 @@
 #include <iostream>
 
 // Only 1 connection is required as there is only 1 robot
-SOCKET Connections[5];
+SOCKET Connections[100];
 int ConnectionCounter = 0;
 
-int ClientHandlerThread(int index) {
-	char buffer[256];
+void ClientHandlerThread(int index) {
+	int bufferLength;
 	while (true) {
-		recv(Connections[index], buffer, sizeof(buffer), NULL);
+		recv(Connections[index], (char*)&bufferLength, sizeof(int), NULL);
+		char * buffer = new char[bufferLength+1];
+		recv(Connections[index], buffer, bufferLength, NULL);
 		for (int i = 0; i < ConnectionCounter; i++) {
 			//Don't need to send the message back to the same client.
 			if (i == index)
 				continue;
 
 			//Send message to other clients.
-			send(Connections[i], buffer, sizeof(buffer), NULL);
+			send(Connections[i], (char*)&bufferLength, sizeof(int), NULL);
+			send(Connections[i], buffer, bufferLength, NULL);
 		}
+		delete[] buffer; //Clear allocated memory to avoid memory leak.
 	}
 }
 
@@ -49,19 +53,24 @@ int main() {
 	std::cout << "WAIT FOR CONNECTION" << std::endl;
 
 	SOCKET newConnection;
-	for (int i = 0; i < 5; i++) {
+	for (int i = 0; i < 100; i++) {
 		newConnection = accept(sListen, (SOCKADDR*)&addr, &addrlen);
 		if (newConnection == 0) {
 			std::cout << "FAILED CONNECTION!" << std::endl;
-		}
-		else {
+		} else {
 			std::cout << "SUCCESSFUL CONNECTION!" << std::endl;
-			char Msg[256] = "This is a message from the server to the Client.";
-			send(newConnection, Msg, sizeof(Msg), NULL);
+			std::string Msg = "This is a message from the server to the Client.";
+			int MsgLength = Msg.size();
+			send(newConnection, (char*)&MsgLength, sizeof(int), NULL);
+			send(newConnection, Msg.c_str(), MsgLength, NULL);
 			Connections[i] = newConnection;
 			ConnectionCounter++;
+
+			//Create new thread to handle new client, each client has its own thread on the server.
+			CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)ClientHandlerThread, (LPVOID)(i), NULL, NULL);
 		}
 	}
+
 	system("pause");
 	return 0;
 }

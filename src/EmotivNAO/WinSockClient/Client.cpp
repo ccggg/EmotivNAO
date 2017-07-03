@@ -4,6 +4,16 @@
 #include <WinSock2.h>
 #include <iostream>
 
+SOCKET Connection;
+
+void ClientThread() {
+	char buffer[256];
+	while (true) {
+		recv(Connection, buffer, sizeof(buffer), NULL);
+		std::cout << buffer << std::endl;
+	}
+}
+
 int main() {
 	WSAData wsaData;
 	WORD DllVersion = MAKEWORD(2, 1);
@@ -20,17 +30,20 @@ int main() {
 	addr.sin_port = htons(1111);
 	addr.sin_family = AF_INET;
 
-	SOCKET Connection = socket(AF_INET, SOCK_STREAM, NULL);
+	Connection = socket(AF_INET, SOCK_STREAM, NULL);
 	if (connect(Connection, (SOCKADDR*)&addr, sizeofaddr) != 0) {
 		MessageBoxA(NULL, "CONNECTION FAILED", "Error", MB_OK | MB_ICONERROR);
 		return 0;
 	}
 
 	std::cout << "CONNECTED!" << std::endl;
+	CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)ClientThread, NULL, NULL, NULL);
 
-	char Msg[256];
-	recv(Connection, Msg, sizeof(Msg), NULL);
-	std::cout << "Message: " << Msg << std::endl;
+	char buffer[256];
+	while (true) {
+		std::cin.getline(buffer, sizeof(buffer));
+		send(Connection, buffer, sizeof(buffer), NULL);
+	}
 
 	system("pause");
 
