@@ -2,6 +2,7 @@
 
 #pragma comment(lib, "ws2_32.lib")
 #include <Winsock2.h>
+#include <string>
 #include <iostream>
 
 // Only 1 connection is required as there is only 1 robot
@@ -11,14 +12,21 @@ int ConnectionCounter = 0;
 void ClientHandlerThread(int index) {
 	char buffer[256];
 	while (true) {
-		recv(Connections[index], buffer, sizeof(buffer), NULL);
+		int num = recv(Connections[index], buffer, sizeof(buffer), NULL);
 		for (int i = 0; i < ConnectionCounter; i++) {
-			buffer[256] = '\0';
-			std::cout << buffer << std::endl;
+			
+			buffer[num] = '\0';
+			if (buffer[num - 1] == '\n')
+				buffer[num - 1] = '\0';
 
 			//Don't need to send the message back to the same client.
-			if (i == index)
+			if (i == index) {
+				std::cout << "Message from Client: ";
+				std::cout << index;
+				std::cout << " >> ";
+				std::cout << buffer << std::endl;
 				continue;
+			}
 
 			//Send message to other clients.
 			send(Connections[i], buffer, sizeof(buffer), NULL);
