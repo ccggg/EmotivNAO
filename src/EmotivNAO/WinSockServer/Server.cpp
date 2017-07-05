@@ -9,22 +9,22 @@ SOCKET Connections[100];
 int ConnectionCounter = 0;
 
 void ClientHandlerThread(int index) {
-	int bufferLength;
+	char buffer[256];
 	while (true) {
-		recv(Connections[index], (char*)&bufferLength, sizeof(int), NULL);
-		char * buffer = new char[bufferLength+1];
-		recv(Connections[index], buffer, bufferLength, NULL);
+		recv(Connections[index], buffer, sizeof(buffer), NULL);
 		for (int i = 0; i < ConnectionCounter; i++) {
+			buffer[256] = '\0';
+			std::cout << buffer << std::endl;
+
 			//Don't need to send the message back to the same client.
 			if (i == index)
 				continue;
 
 			//Send message to other clients.
-			send(Connections[i], (char*)&bufferLength, sizeof(int), NULL);
-			send(Connections[i], buffer, bufferLength, NULL);
+			send(Connections[i], buffer, sizeof(buffer), NULL);
 		}
-		delete[] buffer; //Clear allocated memory to avoid memory leak.
 	}
+	closesocket(Connections[index]);
 }
 
 int main() {
@@ -59,10 +59,9 @@ int main() {
 			std::cout << "FAILED CONNECTION!" << std::endl;
 		} else {
 			std::cout << "SUCCESSFUL CONNECTION!" << std::endl;
-			std::string Msg = "This is a message from the server to the Client.";
-			int MsgLength = Msg.size();
-			send(newConnection, (char*)&MsgLength, sizeof(int), NULL);
-			send(newConnection, Msg.c_str(), MsgLength, NULL);
+
+			char Msg[256] = "Message from the server to the client.";
+			send(newConnection, Msg, sizeof(Msg), NULL);
 			Connections[i] = newConnection;
 			ConnectionCounter++;
 
