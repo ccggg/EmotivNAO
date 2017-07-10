@@ -5,6 +5,11 @@ import struct
 import Queue
 from threading import Thread
 from time import sleep
+from naoqi import ALProxy
+
+def hello_world:
+    tts = ALProxy("ALTextToSpeech", "169.254.65.171", 9559)
+    tts.say("Hello World!")
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
