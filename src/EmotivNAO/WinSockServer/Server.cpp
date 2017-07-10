@@ -1,4 +1,5 @@
 #define _WINSOCK_DEPRECATED_NO_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS
 
 #pragma comment(lib, "ws2_32.lib")
 #include <Winsock2.h>
@@ -35,6 +36,26 @@ void ClientHandlerThread(int index) {
 	closesocket(Connections[index]);
 }
 
+void ServerMessageThread() {
+	char Msg[256];
+	std::string rawInput;
+	while (true) {
+		std::getline(std::cin, rawInput);
+
+		int length = rawInput.length();
+
+		//Convert string to char array
+		sprintf(Msg, rawInput.c_str());
+
+		for (int i = 0; i < ConnectionCounter; i++) {
+			//if(i == 0)
+				//std::cout << Msg << std::endl;
+
+			send(Connections[i], Msg, length, NULL);
+		}
+	}
+}
+
 int main() {
 
 	std::cout << "STARTING SERVER!" << std::endl;
@@ -67,14 +88,19 @@ int main() {
 			std::cout << "FAILED CONNECTION!" << std::endl;
 		} else {
 			std::cout << "SUCCESSFUL CONNECTION!" << std::endl;
+			
+			//This is Windows OS only, if running on another OS remove this line.
+			system("cls");
 
-			char Msg[256] = "Message from the server to the client.";
-			send(newConnection, Msg, sizeof(Msg), NULL);
+			std::cout << "Type a message to send to clients!" << std::endl;
+			//char Msg[256] = "Message from the server to the client.";
+			//send(newConnection, Msg, sizeof(Msg), NULL);
 			Connections[i] = newConnection;
 			ConnectionCounter++;
 
 			//Create new thread to handle new client, each client has its own thread on the server.
 			CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)ClientHandlerThread, (LPVOID)(i), NULL, NULL);
+			CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)ServerMessageThread, (LPVOID)(i), NULL, NULL);
 		}
 	}
 
