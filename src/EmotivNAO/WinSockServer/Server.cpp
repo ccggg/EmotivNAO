@@ -90,11 +90,11 @@ int main() {
 			std::cout << "SUCCESSFUL CONNECTION!" << std::endl;
 			
 			//This is Windows OS only, if running on another OS remove this line.
-			system("cls");
+			//system("cls");
 
 			std::cout << "Type a message to send to clients!" << std::endl;
-			//char Msg[256] = "Message from the server to the client.";
-			//send(newConnection, Msg, sizeof(Msg), NULL);
+			char Msg[256] = "Message from the server to the client.";
+			send(newConnection, Msg, sizeof(Msg), NULL);
 			Connections[i] = newConnection;
 			ConnectionCounter++;
 

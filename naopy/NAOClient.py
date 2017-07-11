@@ -6,11 +6,11 @@ import struct
 import Queue
 from threading import Thread
 from time import sleep
-#from naoqi import ALProxy
+from naoqi import ALProxy
 
-#def hello_world:
-    #tts = ALProxy("ALTextToSpeech", "169.254.65.171", 9559)
-    #tts.say("Hello World!")
+def output_nao(text_input):
+    tts = ALProxy("ALTextToSpeech", "169.254.65.171", 9559)
+    tts.say(text_input)
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -39,12 +39,12 @@ while not_connected:
 def client_thread():
     while True:
         data = sock.recv(256)
+		output_nao(data)
         print '>> ', data
 
 def input_thread():
     while True:
         message = raw_input('')
-        #sock.sendall('5')
         sock.sendall(message)
 
 thread1 = Thread(target = client_thread)
