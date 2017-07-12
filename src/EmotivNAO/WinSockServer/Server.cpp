@@ -88,12 +88,9 @@ int main() {
 			std::cout << "FAILED CONNECTION!" << std::endl;
 		} else {
 			std::cout << "SUCCESSFUL CONNECTION!" << std::endl;
-			
-			//This is Windows OS only, if running on another OS remove this line.
-			//system("cls");
 
 			std::cout << "Type a message to send to clients!" << std::endl;
-			char Msg[256] = "Message from the server to the client.";
+			char Msg[256] = "Robot is connected to the server!";
 			send(newConnection, Msg, sizeof(Msg), NULL);
 			Connections[i] = newConnection;
 			ConnectionCounter++;
