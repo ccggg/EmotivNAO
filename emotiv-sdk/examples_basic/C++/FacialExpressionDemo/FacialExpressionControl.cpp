@@ -17,7 +17,6 @@ public:
 		_expMap[FE_FROWN		] = "frown";
 		_expMap[FE_SMILE		] = "smile";
 		_expMap[FE_CLENCH		] = "clench";
-		
 	}
 	const std::map<IEE_FacialExpressionAlgo_t, std::string>& getMap() const {
 		return _expMap;

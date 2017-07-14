@@ -5,5 +5,7 @@ f:\emotivnao2\src\emotivnao\winsockserver\server.cpp(68): warning C4244: '=': co
 f:\emotivnao2\src\emotivnao\winsockserver\server.cpp(69): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
 f:\emotivnao2\src\emotivnao\winsockserver\server.cpp(118): warning C4312: 'type cast': conversion from 'int' to 'LPVOID' of greater size
 f:\emotivnao2\src\emotivnao\winsockserver\server.cpp(119): warning C4312: 'type cast': conversion from 'int' to 'LPVOID' of greater size
+  FacialCommands.cpp
+  Generating Code...
   WinSockServer.vcxproj -> F:\EmotivNAO2\src\EmotivNAO\WinSockServer\../../../emotiv-sdk/bin/win64\WinSockServer.exe
   WinSockServer.vcxproj -> ../../../emotiv-sdk/bin/win64\WinSockServer.pdb (Full PDB)

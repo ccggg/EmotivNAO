@@ -175,10 +175,10 @@ int main(int argc, char** argv) {
 
 void loadProfile(int userID)
 {			
-    if (IEE_LoadUserProfile(userID, profileNameForLoading.c_str()) == EDK_OK)
-        std::cout << "Load Profile : done" << std::endl;
+	if (IEE_LoadUserProfile(userID, profileNameForLoading.c_str()) == EDK_OK)
+		std::cout << "Load Profile : done" << std::endl;
 	else
-		throw std::runtime_error("Can't load profile.");
+		std::cout << "Can't load profile." << std::endl;
 }
 
 const char *byte_to_binary(long x)

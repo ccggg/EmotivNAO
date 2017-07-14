@@ -150,10 +150,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="FacialCommands.cpp" />
     <ClCompile Include="GyroData.cpp" />
     <ClCompile Include="Server.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="FacialCommands.h" />
     <ClInclude Include="GyroData.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
