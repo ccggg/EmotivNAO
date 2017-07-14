@@ -2,5 +2,13 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="Server.cpp" />
+    <ClCompile Include="GyroData.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="GyroData.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="WinSockServer.rc" />
   </ItemGroup>
 </Project>

@@ -5,6 +5,9 @@
 #include <Winsock2.h>
 #include <string>
 #include <iostream>
+#include "GyroData.h"
+
+extern int startGyro();
 
 // Only 1 connection is required as there is only 1 robot
 SOCKET Connections[100];
@@ -36,16 +39,20 @@ void ClientHandlerThread(int index) {
 	closesocket(Connections[index]);
 }
 
+int xCoord = 0;
+int yCoord = 0;
+
 void ServerMessageThread() {
 	char Msg[256];
 	std::string rawInput;
 	while (true) {
-		std::getline(std::cin, rawInput);
-
-		int length = rawInput.length();
+		//std::getline(std::cin, rawInput);
+		Sleep(1500);
+		int length = std::string(("head," + std::to_string(xCoord) + "," + std::to_string(yCoord)).c_str()).length();
 
 		//Convert string to char array
-		sprintf(Msg, rawInput.c_str());
+		//sprintf(Msg, rawInput.c_str());
+		sprintf(Msg, std::string("head," + std::to_string(xCoord) + "," + std::to_string(yCoord)).c_str());
 
 		for (int i = 0; i < ConnectionCounter; i++) {
 			//if(i == 0)
@@ -56,7 +63,21 @@ void ServerMessageThread() {
 	}
 }
 
-int main() {
+void GyroCoordinate() {
+	while (true) {
+		xCoord = xmax / 100;
+		yCoord = ymax / 100;
+
+		//std::cout << xCoord << std::endl;
+		//std::cout << yCoord << std::endl;
+
+		Sleep(500);
+	}
+}
+
+int main(int argc, char** argv) {
+	CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)startGyro, NULL, NULL, NULL);
+	CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)GyroCoordinate, NULL, NULL, NULL);
 
 	std::cout << "STARTING SERVER!" << std::endl;
 
@@ -65,7 +86,7 @@ int main() {
 
 	// If WSAStartup returns anything other than 0 then there is an error.
 	if (WSAStartup(DllVersion, &wsaData) != 0) {
-		MessageBoxA(NULL, "Winsock startup failed", "Error", MB_OK | MB_ICONERROR);
+		std::cout << "STARTUP FAILED!" << std::endl;
 		exit(1);
 	}
 
@@ -90,7 +111,7 @@ int main() {
 			std::cout << "SUCCESSFUL CONNECTION!" << std::endl;
 
 			std::cout << "Type a message to send to clients!" << std::endl;
-			char Msg[256] = "Robot is connected to the server!";
+			char Msg[256] = "head,0.0,0.0";
 			send(newConnection, Msg, sizeof(Msg), NULL);
 			Connections[i] = newConnection;
 			ConnectionCounter++;
