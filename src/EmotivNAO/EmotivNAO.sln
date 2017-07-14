@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EmotivNAO", "EmotivNAO\EmotivNAO.vcxproj", "{32AF2D35-7781-4B55-B26B-C001C8DC514D}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WinSockClient", "WinSockClient\WinSockClient.vcxproj", "{66BA4CBF-8498-4FE5-B220-8322EDF69562}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WinSockServer", "WinSockServer\WinSockServer.vcxproj", "{380C8632-371D-4DF9-A922-B7A7C0F912B3}"
@@ -17,14 +15,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{32AF2D35-7781-4B55-B26B-C001C8DC514D}.Debug|x64.ActiveCfg = Debug|x64
-		{32AF2D35-7781-4B55-B26B-C001C8DC514D}.Debug|x64.Build.0 = Debug|x64
-		{32AF2D35-7781-4B55-B26B-C001C8DC514D}.Debug|x86.ActiveCfg = Debug|Win32
-		{32AF2D35-7781-4B55-B26B-C001C8DC514D}.Debug|x86.Build.0 = Debug|Win32
-		{32AF2D35-7781-4B55-B26B-C001C8DC514D}.Release|x64.ActiveCfg = Release|x64
-		{32AF2D35-7781-4B55-B26B-C001C8DC514D}.Release|x64.Build.0 = Release|x64
-		{32AF2D35-7781-4B55-B26B-C001C8DC514D}.Release|x86.ActiveCfg = Release|Win32
-		{32AF2D35-7781-4B55-B26B-C001C8DC514D}.Release|x86.Build.0 = Release|Win32
 		{66BA4CBF-8498-4FE5-B220-8322EDF69562}.Debug|x64.ActiveCfg = Debug|x64
 		{66BA4CBF-8498-4FE5-B220-8322EDF69562}.Debug|x64.Build.0 = Debug|x64
 		{66BA4CBF-8498-4FE5-B220-8322EDF69562}.Debug|x86.ActiveCfg = Debug|Win32

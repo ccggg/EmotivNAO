@@ -47,12 +47,12 @@ void ServerMessageThread() {
 	std::string rawInput;
 	while (true) {
 		//std::getline(std::cin, rawInput);
-		Sleep(1500);
-		int length = std::string(("head," + std::to_string(xCoord) + "," + std::to_string(yCoord)).c_str()).length();
+		Sleep(25);
+		int length = std::string(("head," + std::to_string(xCoord) + "," + std::to_string(yCoord) + "|").c_str()).length();
 
 		//Convert string to char array
 		//sprintf(Msg, rawInput.c_str());
-		sprintf(Msg, std::string("head," + std::to_string(xCoord) + "," + std::to_string(yCoord)).c_str());
+		sprintf(Msg, std::string("head," + std::to_string(xCoord) + "," + std::to_string(yCoord) + "|").c_str());
 
 		for (int i = 0; i < ConnectionCounter; i++) {
 			//if(i == 0)
@@ -65,13 +65,11 @@ void ServerMessageThread() {
 
 void GyroCoordinate() {
 	while (true) {
-		xCoord = xmax / 100;
-		yCoord = ymax / 100;
+		xCoord = xmax / 98;
+		yCoord = ymax / 98;
 
 		//std::cout << xCoord << std::endl;
 		//std::cout << yCoord << std::endl;
-
-		Sleep(500);
 	}
 }
 

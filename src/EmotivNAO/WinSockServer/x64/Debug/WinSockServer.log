@@ -1,9 +1,9 @@
 ﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(368,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
   Server.cpp
-f:\emotivnao\src\emotivnao\winsockserver\server.cpp(51): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-f:\emotivnao\src\emotivnao\winsockserver\server.cpp(68): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-f:\emotivnao\src\emotivnao\winsockserver\server.cpp(69): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-f:\emotivnao\src\emotivnao\winsockserver\server.cpp(120): warning C4312: 'type cast': conversion from 'int' to 'LPVOID' of greater size
-f:\emotivnao\src\emotivnao\winsockserver\server.cpp(121): warning C4312: 'type cast': conversion from 'int' to 'LPVOID' of greater size
-  WinSockServer.vcxproj -> F:\EmotivNAO\src\EmotivNAO\WinSockServer\../../../emotiv-sdk/bin/win64\WinSockServer.exe
+f:\emotivnao2\src\emotivnao\winsockserver\server.cpp(51): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+f:\emotivnao2\src\emotivnao\winsockserver\server.cpp(68): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+f:\emotivnao2\src\emotivnao\winsockserver\server.cpp(69): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+f:\emotivnao2\src\emotivnao\winsockserver\server.cpp(118): warning C4312: 'type cast': conversion from 'int' to 'LPVOID' of greater size
+f:\emotivnao2\src\emotivnao\winsockserver\server.cpp(119): warning C4312: 'type cast': conversion from 'int' to 'LPVOID' of greater size
+  WinSockServer.vcxproj -> F:\EmotivNAO2\src\EmotivNAO\WinSockServer\../../../emotiv-sdk/bin/win64\WinSockServer.exe
   WinSockServer.vcxproj -> ../../../emotiv-sdk/bin/win64\WinSockServer.pdb (Full PDB)

@@ -5,6 +5,7 @@ import socket
 import struct
 import Queue
 import GyroNAOHead
+from NAOPostures import Crouch
 from threading import Thread
 from time import sleep
 #from naoqi import ALProxy
@@ -40,8 +41,13 @@ while not_connected:
 def client_thread():
     while True:
         data = sock.recv(256)
+        data = ''.join(data.partition('|')[0:2])
+        data = data.replace('|', '')
         print '>> ', data
-        move_type,x1,y1 = data.split(',')
+        try:
+            move_type,x1,y1 = data.split(',')
+        except ValueError:
+            continue
         print move_type
         print repr(x1.rstrip('\x00'))
         print repr(y1.rstrip('\x00'))
@@ -51,10 +57,7 @@ def client_thread():
 
         if move_type.lower() == 'head':
             print 'Head Movement'
-            head_thread = Thread(target = GyroNAOHead.MoveHead(float(x1), float(y1)))
-            head_thread.setDaemon(True)
-            head_thread.start()
-            #GyroNAOHead.MoveHead(float(x1), float(y1))
+            GyroNAOHead.ControlRobot(float(x1), float(y1))
 
 		#output_nao(data)
 
