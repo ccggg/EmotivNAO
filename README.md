@@ -1,8 +1,12 @@
-# Requirements
+# Software Requirements
 * Anaconda 2 32-Bit https://repo.continuum.io/archive/Anaconda2-4.4.0-Windows-x86.exe
 * Atom Text Editor (recommeneded) https://atom.io/
 * Visual Studio (2015 recommended) https://www.visualstudio.com/downloads/
 * NAO Robot Pyton SDK http://doc.aldebaran.com/1-14/dev/python/install_guide.html#python-install-guide
+
+# Hardware Requirements
+* NAO Robot
+* Emotiv EPOC+ headset
 
 # Atom Setup Guide
 * Install packages: **atom-pyton-run**, **autocomplete-python**, **python-indent**, **python-tools**
