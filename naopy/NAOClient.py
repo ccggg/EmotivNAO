@@ -4,13 +4,14 @@ import sys
 import socket
 import struct
 import Queue
+import GyroNAOHead
 from threading import Thread
 from time import sleep
-from naoqi import ALProxy
+#from naoqi import ALProxy
 
-def output_nao(text_input):
-    tts = ALProxy("ALTextToSpeech", "169.254.65.171", 9559)
-    tts.say(text_input)
+#def output_nao(text_input):
+    #tts = ALProxy("ALTextToSpeech", "169.254.65.171", 9559)
+    #tts.say(text_input)
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -39,8 +40,23 @@ while not_connected:
 def client_thread():
     while True:
         data = sock.recv(256)
-		output_nao(data)
         print '>> ', data
+        move_type,x1,y1 = data.split(',')
+        print move_type
+        print repr(x1.rstrip('\x00'))
+        print repr(y1.rstrip('\x00'))
+
+        x1 = x1.rstrip('\x00')
+        y1 = y1.rstrip('\x00')
+
+        if move_type.lower() == 'head':
+            print 'Head Movement'
+            head_thread = Thread(target = GyroNAOHead.MoveHead(float(x1), float(y1)))
+            head_thread.setDaemon(True)
+            head_thread.start()
+            #GyroNAOHead.MoveHead(float(x1), float(y1))
+
+		#output_nao(data)
 
 def input_thread():
     while True:

@@ -1,7 +1,10 @@
 import sys
 import time
 import random
+import almath
 from naoqi import ALProxy
+
+robotIp = "169.254.65.171"
 
 def StiffnessOn(proxy):
     # We use the "Body" name to signify the collection of all joints
@@ -11,16 +14,16 @@ def StiffnessOn(proxy):
     proxy.stiffnessInterpolation(pNames, pStiffnessLists, pTimeLists)
 
 
-def main(robotIP):
+def MoveHead(x1, y1):
     # Init proxies.
     try:
-        motionProxy = ALProxy("ALMotion", robotIP, 9559)
+        motionProxy = ALProxy("ALMotion", "169.254.65.171", 9559)
     except Exception, e:
         print "Could not create proxy to ALMotion"
         print "Error was: ", e
 
     try:
-        postureProxy = ALProxy("ALRobotPosture", robotIP, 9559)
+        postureProxy = ALProxy("ALRobotPosture", "169.254.65.171", 9559)
     except Exception, e:
         print "Could not create proxy to ALRobotPosture"
         print "Error was: ", e
@@ -29,27 +32,12 @@ def main(robotIP):
     StiffnessOn(motionProxy)
 
     # Send NAO to Pose Init
-    postureProxy.goToPosture("StandInit", 1.0)
+    #postureProxy.goToPosture("StandInit", 1.0)
 
-    testTime = 10
-    t = 0
-    dt = 0.2
+    # Move head randomly test
+    names = ["HeadYaw", "HeadPitch"]
+    angleLists = [x1 * almath.TO_RAD, y1 * almath.TO_RAD]
+    timeLists = [1.0, 1.0]
+    isAbsolute = True
 
-    while (t < testTime):
-        # Move head randomly test
-        motionProxy.setAngles("HeadYaw", random.uniform(-1.0, 1.0), 0.6)
-        motionProxy.setAngles("HeadPitch", random.uniform(-0.5, 0.5), 0.6)
-
-        t = t + dt
-        time.sleep(dt)
-
-
-if __name__ == "__main__":
-    robotIp = "127.0.0.1"
-
-    if len(sys.argv) <= 1:
-        print ""
-    else:
-        robotIp = sys.argv[1]
-
-    main(robotIp)
+    motionProxy.angleInterpolation(names, angleLists, timeLists, isAbsolute)
