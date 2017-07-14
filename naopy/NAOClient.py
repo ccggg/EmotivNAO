@@ -5,7 +5,7 @@ import socket
 import struct
 import Queue
 import GyroNAOHead
-from NAOPostures import Crouch
+#from NAOPostures import Crouch
 from threading import Thread
 from time import sleep
 #from naoqi import ALProxy
