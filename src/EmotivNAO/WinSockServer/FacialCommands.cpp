@@ -75,7 +75,7 @@ std::string expressionToString(IEE_FacialExpressionAlgo_t expType)
 		return "<unknown action>";
 }
 
-/*bool parseCommand(const std::string& input, std::ostream& output) {
+bool parseCommand(const std::string& input, std::ostream& output) {
 
 	bool result = true;
 	std::ostringstream os;
@@ -308,4 +308,4 @@ std::string expressionToString(IEE_FacialExpressionAlgo_t expType)
 	}
 
 	return result;
-}*/
+}

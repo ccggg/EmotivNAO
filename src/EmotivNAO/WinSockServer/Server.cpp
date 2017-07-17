@@ -6,8 +6,10 @@
 #include <string>
 #include <iostream>
 #include "GyroData.h"
+#include "FacialExpression.h"
 
 extern int startGyro();
+extern int startExpression();
 
 // Only 1 connection is required as there is only 1 robot
 SOCKET Connections[100];
@@ -46,6 +48,8 @@ void ServerMessageThread() {
 	char Msg[256];
 	std::string rawInput;
 	while (true) {
+		std::string currentFaceCommand = faceCommand;
+
 		//std::getline(std::cin, rawInput);
 		Sleep(25);
 		int length = std::string(("head," + std::to_string(xCoord) + "," + std::to_string(yCoord) + "|").c_str()).length();
@@ -75,6 +79,7 @@ void GyroCoordinate() {
 
 int main(int argc, char** argv) {
 	CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)startGyro, NULL, NULL, NULL);
+	CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)startExpression, NULL, NULL, NULL);
 	CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)GyroCoordinate, NULL, NULL, NULL);
 
 	std::cout << "STARTING SERVER!" << std::endl;

@@ -4,11 +4,13 @@
     <ClCompile Include="Server.cpp" />
     <ClCompile Include="GyroData.cpp" />
     <ClCompile Include="FacialCommands.cpp" />
+    <ClCompile Include="FacialExpression.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />
     <ClInclude Include="GyroData.h" />
     <ClInclude Include="FacialCommands.h" />
+    <ClInclude Include="FacialExpression.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WinSockServer.rc" />

@@ -5,6 +5,7 @@ import socket
 import struct
 import Queue
 import GyroNAOHead
+import NAOSay
 #from NAOPostures import Crouch
 from threading import Thread
 from time import sleep
@@ -48,16 +49,27 @@ def client_thread():
             move_type,x1,y1 = data.split(',')
         except ValueError:
             continue
-        print move_type
+        print exp_type
         print repr(x1.rstrip('\x00'))
         print repr(y1.rstrip('\x00'))
 
         x1 = x1.rstrip('\x00')
         y1 = y1.rstrip('\x00')
 
-        if move_type.lower() == 'head':
-            print 'Head Movement'
-            GyroNAOHead.ControlRobot(float(x1), float(y1))
+        if exp_type.lower() == 'neutral':
+            NAOSay.TextToSpeech("You are neutral")
+        elif exp_type.lower() == 'smile':
+            NAOSay.TextToSpeech("You are smiling")
+        elif exp_type.lower() == 'surprise':
+            NAOSay.TextToSpeech("You are surprised")
+        elif exp_type.lower() == 'frown':
+            NAOSay.TextToSpeech("You are frowning")
+        elif exp_type.lower() == 'teeth clench':
+            NAOSay.TextToSpeech("You are clenching your teeth")
+        else:
+            NAOSay.TextToSpeech("I don't know what you are doing")
+
+        GyroNAOHead.ControlRobot(float(x1), float(y1))
 
 		#output_nao(data)
 

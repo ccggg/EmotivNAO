@@ -151,11 +151,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="FacialCommands.cpp" />
+    <ClCompile Include="FacialExpression.cpp" />
     <ClCompile Include="GyroData.cpp" />
     <ClCompile Include="Server.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FacialCommands.h" />
+    <ClInclude Include="FacialExpression.h" />
     <ClInclude Include="GyroData.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>

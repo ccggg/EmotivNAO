@@ -7,7 +7,6 @@ from naoqi import ALProxy
 robotIp = "169.254.65.171"
 
 def ControlRobot(x1, y1):
-    print 'CREATING MOTION AND AWARENESS PROXIES'
     try:
         motionProxy = ALProxy("ALMotion", robotIp, 9559)
     except Exception, e:
