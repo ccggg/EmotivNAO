@@ -31,7 +31,7 @@ win32 is in emotiv-sdk > lib > win32
 # Todo List
 * Get Emotiv Gyro data on the server side (DONE)
 * Send Gyro data to the server side (DONE)
-* Move NAO head in relation to the Emotiv's Gyro data
-* Take input of the emotiv 'commands' on the server: clench, wink, blink, etc.
-* Send command to nao robot. (Done)
-* Robot will output what you're doing.
+* Move NAO head in relation to the Emotiv's Gyro data (DONE)
+* Take input of the emotiv 'commands' on the server: clench, wink, blink, etc. (DONE)
+* Send command to nao robot. (DONE)
+* Robot will output what you're doing. (DONE)
