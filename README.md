@@ -28,6 +28,10 @@
 Include is in emotiv-sdk > include
 win32 is in emotiv-sdk > lib > win32
 
+# Problems
+* Server-Client code is not the best, packet sizes are not dynamic, it will always send 256 bytes of data. Extra characters are removed on the client side.
+* Server cannot handle closing of clients. If a client closes then the server will crash.
+
 # Todo List
 * Get Emotiv Gyro data on the server side (DONE)
 * Send Gyro data to the server side (DONE)
