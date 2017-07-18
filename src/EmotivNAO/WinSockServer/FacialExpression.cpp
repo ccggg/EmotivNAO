@@ -24,6 +24,7 @@
 #include <stdexcept>
 #include <cstdlib>
 #include <stdio.h>
+#include <windows.h>
 
 #include "IEmoStateDLL.h"
 #include "Iedk.h"
@@ -45,6 +46,8 @@ void sendFacialExpressionAnimation(EmoStateHandle);
 void handleFacialExpressionEvent(std::ostream&, EmoEngineEventHandle);
 bool handleUserInput();
 void promptUser();
+
+extern std::string faceCommand = "n";
 
 #if __linux__ || __APPLE__
 int _kbhit(void);
@@ -82,7 +85,6 @@ int _getch()
 #endif
 
 int startExpression() {
-
 	char *myargv[1];
 	int myargc = 1;
 	myargv[0] = _strdup("Gyro Tracking");
@@ -211,7 +213,7 @@ int startExpression() {
 			}
 
 #ifdef _WIN32
-			//Sleep(15);
+			Sleep(15);
 #endif
 #if __linux__  || __APPLE__
 			usleep(10000);
@@ -251,7 +253,7 @@ void sendFacialExpressionAnimation(EmoStateHandle eState) {
 	float lowerFaceAmp = IS_FacialExpressionGetLowerFaceActionPower(eState);
 
 	if (IS_FacialExpressionIsBlink(eState)) {
-		std::cout << "BLINKING" << std::endl;
+		//std::cout << "BLINKING" << std::endl;
 		output << "B,";
 	}
 
@@ -267,12 +269,12 @@ void sendFacialExpressionAnimation(EmoStateHandle eState) {
 	if (upperFaceAmp > 0.55) {
 		switch (upperFaceType) {
 		case FE_SURPRISE:	
-			std::cout << "SURPRISE" << std::endl;	
-			faceCommand = "SURPRISE";
+			//std::cout << "SURPRISE" << std::endl;	
+			faceCommand = "y";
 			break;
 		case FE_FROWN:   
-			std::cout << "FROWN" << std::endl; 
-			faceCommand = "FROWN";
+			//std::cout << "FROWN" << std::endl; 
+			faceCommand = "f";
 			break;
 		default:			break;
 		}
@@ -282,8 +284,8 @@ void sendFacialExpressionAnimation(EmoStateHandle eState) {
 	if (lowerFaceAmp > 0.4) {
 		switch (lowerFaceType) {
 		case FE_SMILE:	
-			std::cout << "SMILE" << std::endl;	
-			faceCommand = "SMILE";
+			//std::cout << "SMILE" << std::endl;	
+			faceCommand = "s";
 			break;
 		default:			break;
 		}
@@ -293,8 +295,8 @@ void sendFacialExpressionAnimation(EmoStateHandle eState) {
 	if (lowerFaceAmp > 0.25) {
 		switch (lowerFaceType) {
 		case FE_CLENCH:	
-			std::cout << "TEETH CLENCH" << std::endl;	
-			faceCommand = "TEETH CLENCH";
+			//std::cout << "TEETH CLENCH" << std::endl;	
+			faceCommand = "t";
 			break;
 		default:			break;
 		}
@@ -310,8 +312,8 @@ void sendFacialExpressionAnimation(EmoStateHandle eState) {
 
 	if (!outString.length()) {
 		outString = std::string("neutral");
-		std::cout << "NEUTRAL" << std::endl;
-		faceCommand = "NEUTRAL";
+		//std::cout << "NEUTRAL" << std::endl;
+		faceCommand = "n";
 	}
 
 	//sock.SendBytes(outString);

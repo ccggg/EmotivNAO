@@ -48,15 +48,44 @@ void ServerMessageThread() {
 	char Msg[256];
 	std::string rawInput;
 	while (true) {
-		std::string currentFaceCommand = faceCommand;
+		//std::string currentFaceCommand = faceCommand;
+		std::cout << faceCommand << std::endl;
+
+		int length = std::string(("a," + std::to_string(xCoord) + "," + std::to_string(yCoord) + "|").c_str()).length();
+		sprintf(Msg, std::string("a," + std::to_string(xCoord) + "," + std::to_string(yCoord) + "|").c_str());
+
+		if (faceCommand == "n") {
+			int length = std::string(("n," + std::to_string(xCoord) + "," + std::to_string(yCoord) + "|").c_str()).length();
+			sprintf(Msg, std::string("n," + std::to_string(xCoord) + "," + std::to_string(yCoord) + "|").c_str());
+		}
+		else if (faceCommand == "y") {
+			int length = std::string(("y," + std::to_string(xCoord) + "," + std::to_string(yCoord) + "|").c_str()).length();
+			sprintf(Msg, std::string("y," + std::to_string(xCoord) + "," + std::to_string(yCoord) + "|").c_str());
+		}
+		else if (faceCommand == "t") {
+			int length = std::string(("t," + std::to_string(xCoord) + "," + std::to_string(yCoord) + "|").c_str()).length();
+			sprintf(Msg, std::string("t," + std::to_string(xCoord) + "," + std::to_string(yCoord) + "|").c_str());
+		}
+		else if (faceCommand == "f") {
+			int length = std::string(("f," + std::to_string(xCoord) + "," + std::to_string(yCoord) + "|").c_str()).length();
+			sprintf(Msg, std::string("f," + std::to_string(xCoord) + "," + std::to_string(yCoord) + "|").c_str());
+		}
+		else if (faceCommand == "s") {
+			int length = std::string(("s," + std::to_string(xCoord) + "," + std::to_string(yCoord) + "|").c_str()).length();
+			sprintf(Msg, std::string("s," + std::to_string(xCoord) + "," + std::to_string(yCoord) + "|").c_str());
+		}
+		else {
+			int length = std::string(("a," + std::to_string(xCoord) + "," + std::to_string(yCoord) + "|").c_str()).length();
+			sprintf(Msg, std::string("a," + std::to_string(xCoord) + "," + std::to_string(yCoord) + "|").c_str());
+		}
 
 		//std::getline(std::cin, rawInput);
 		Sleep(25);
-		int length = std::string(("head," + std::to_string(xCoord) + "," + std::to_string(yCoord) + "|").c_str()).length();
+		//int length = std::string((faceCommand + "," + std::to_string(xCoord) + "," + std::to_string(yCoord) + "|").c_str()).length();
 
 		//Convert string to char array
 		//sprintf(Msg, rawInput.c_str());
-		sprintf(Msg, std::string("head," + std::to_string(xCoord) + "," + std::to_string(yCoord) + "|").c_str());
+		//sprintf(Msg, std::string(faceCommand + "," + std::to_string(xCoord) + "," + std::to_string(yCoord) + "|").c_str());
 
 		for (int i = 0; i < ConnectionCounter; i++) {
 			//if(i == 0)
@@ -79,8 +108,8 @@ void GyroCoordinate() {
 
 int main(int argc, char** argv) {
 	CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)startGyro, NULL, NULL, NULL);
-	CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)startExpression, NULL, NULL, NULL);
 	CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)GyroCoordinate, NULL, NULL, NULL);
+	CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)startExpression, NULL, NULL, NULL);
 
 	std::cout << "STARTING SERVER!" << std::endl;
 

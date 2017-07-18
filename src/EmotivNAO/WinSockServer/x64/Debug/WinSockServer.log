@@ -1,4 +1,17 @@
 ﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(368,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
+  Server.cpp
+f:\emotivnao\src\emotivnao\winsockserver\server.cpp(54): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+f:\emotivnao\src\emotivnao\winsockserver\server.cpp(58): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+f:\emotivnao\src\emotivnao\winsockserver\server.cpp(62): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+f:\emotivnao\src\emotivnao\winsockserver\server.cpp(66): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+f:\emotivnao\src\emotivnao\winsockserver\server.cpp(70): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+f:\emotivnao\src\emotivnao\winsockserver\server.cpp(74): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+f:\emotivnao\src\emotivnao\winsockserver\server.cpp(78): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+f:\emotivnao\src\emotivnao\winsockserver\server.cpp(101): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+f:\emotivnao\src\emotivnao\winsockserver\server.cpp(102): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+f:\emotivnao\src\emotivnao\winsockserver\server.cpp(152): warning C4312: 'type cast': conversion from 'int' to 'LPVOID' of greater size
+f:\emotivnao\src\emotivnao\winsockserver\server.cpp(153): warning C4312: 'type cast': conversion from 'int' to 'LPVOID' of greater size
   FacialExpression.cpp
+  Generating Code...
   WinSockServer.vcxproj -> F:\EmotivNAO\src\EmotivNAO\WinSockServer\../../../emotiv-sdk/bin/win64\WinSockServer.exe
   WinSockServer.vcxproj -> ../../../emotiv-sdk/bin/win64\WinSockServer.pdb (Full PDB)

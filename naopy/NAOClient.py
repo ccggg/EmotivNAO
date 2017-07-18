@@ -40,13 +40,14 @@ while not_connected:
         not_connected = False
 
 def client_thread():
+    old_exp = "na"
     while True:
         data = sock.recv(256)
         data = ''.join(data.partition('|')[0:2])
         data = data.replace('|', '')
         print '>> ', data
         try:
-            move_type,x1,y1 = data.split(',')
+            exp_type,x1,y1 = data.split(',')
         except ValueError:
             continue
         print exp_type
@@ -56,21 +57,38 @@ def client_thread():
         x1 = x1.rstrip('\x00')
         y1 = y1.rstrip('\x00')
 
-        if exp_type.lower() == 'neutral':
-            NAOSay.TextToSpeech("You are neutral")
-        elif exp_type.lower() == 'smile':
-            NAOSay.TextToSpeech("You are smiling")
-        elif exp_type.lower() == 'surprise':
-            NAOSay.TextToSpeech("You are surprised")
-        elif exp_type.lower() == 'frown':
-            NAOSay.TextToSpeech("You are frowning")
-        elif exp_type.lower() == 'teeth clench':
-            NAOSay.TextToSpeech("You are clenching your teeth")
-        else:
-            NAOSay.TextToSpeech("I don't know what you are doing")
+        gyro_thread = Thread(target = GyroNAOHead.ControlRobot(float(x1), float(y1)))
+        gyro_thread.setDaemon(True)
+        gyro_thread.start()
 
-        GyroNAOHead.ControlRobot(float(x1), float(y1))
+        #GyroNAOHead.ControlRobot(float(x1), float(y1))
 
+        if exp_type != old_exp:
+            if exp_type.lower() == 'n':
+                say_message = "You are neutral"
+                print "Neutral"
+            elif exp_type.lower() == 's':
+                say_message = "You are smiling"
+                print "Smiling"
+            elif exp_type.lower() == 'y':
+                say_message = "You are surprised"
+                print "Surprised"
+            elif exp_type.lower() == 'f':
+                say_message = "You are frowning"
+                print "Frowning"
+            elif exp_type.lower() == 't':
+                say_message = "You are clenching your teeth"
+                print "Teeth Clenched"
+            else:
+                say_message = ""
+                print "Don't know"
+
+            say_thread = Thread(target = NAOSay.TextToSpeech(say_message))
+            say_thread.setDaemon(True)
+            say_thread.start()
+
+        old_exp = exp_type
+        #NAOSay.TextToSpeech(say_message)
 		#output_nao(data)
 
 def input_thread():
