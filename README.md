@@ -28,6 +28,17 @@
 Include is in emotiv-sdk > include
 win32 is in emotiv-sdk > lib > win32
 
+# Facial Commands
+* Neutral
+* Blink
+* Wink left
+* Wink right
+* Raise brow (surprise)
+* Furrow brow (frown)
+* Smile
+* Clench (teeth clench)
+* Laugh
+
 # Problems
 * Server-Client code is not the best, packet sizes are not dynamic, it will always send 256 bytes of data. Extra characters are removed on the client side.
 * Server cannot handle closing of clients. If a client closes then the server will crash.
