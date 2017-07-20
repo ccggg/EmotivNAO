@@ -98,8 +98,8 @@ void ServerMessageThread() {
 
 void GyroCoordinate() {
 	while (true) {
-		xCoord = xmax / 98;
-		yCoord = ymax / 98;
+		xCoord = xmax / 96;
+		yCoord = ymax / 96;
 
 		//std::cout << xCoord << std::endl;
 		//std::cout << yCoord << std::endl;

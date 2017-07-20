@@ -1,20 +1,3 @@
-/****************************************************************************
-**
-** Copyright 2015 by Emotiv. All rights reserved
-**
-** Example - FacialExpressionDemo
-**
-** This example demonstrates how an application can use the ExpressivTM
-** detection suite to control an animated head model called BlueAvatar.
-** The model emulates the facial expressions made by the user wearing an
-** Emotiv headset.
-** FacialExpressionDemo connects to Emotiv EmoEngineTM and retrieves EmoStatesTM
-** for all attached users. The EmoState is examined to determine which
-** facial expression best matches the user’s face.
-** FacialExpressionDemo communicates the detected expressions to the separate
-** BlueAvatar application by sending a UDP packet which follows a simple,
-** pre-defined protocol
-****************************************************************************/
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <iostream>
@@ -281,10 +264,9 @@ void sendFacialExpressionAnimation(EmoStateHandle eState) {
 		output << numberToString(static_cast<int>(upperFaceAmp*100.0f)) << ",";
 	}
 
-	if (lowerFaceAmp > 0.4) {
+	if (lowerFaceAmp > 0.2) {
 		switch (lowerFaceType) {
 		case FE_SMILE:	
-			//std::cout << "SMILE" << std::endl;	
 			faceCommand = "s";
 			break;
 		default:			break;
@@ -295,7 +277,6 @@ void sendFacialExpressionAnimation(EmoStateHandle eState) {
 	if (lowerFaceAmp > 0.25) {
 		switch (lowerFaceType) {
 		case FE_CLENCH:	
-			//std::cout << "TEETH CLENCH" << std::endl;	
 			faceCommand = "t";
 			break;
 		default:			break;
