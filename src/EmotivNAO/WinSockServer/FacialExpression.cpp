@@ -274,7 +274,7 @@ void sendFacialExpressionAnimation(EmoStateHandle eState) {
 		output << numberToString(static_cast<int>(lowerFaceAmp*100.0f)) << ",";
 	}
 
-	if (lowerFaceAmp > 0.25) {
+	if (lowerFaceAmp > 0.45) {
 		switch (lowerFaceType) {
 		case FE_CLENCH:	
 			faceCommand = "t";
