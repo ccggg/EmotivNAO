@@ -39,14 +39,12 @@ win32 is in emotiv-sdk > lib > win32
 * Clench (teeth clench)
 * Laugh
 
-# Problems
-* Server-Client code is not the best, packet sizes are not dynamic, it will always send 256 bytes of data. Extra characters are removed on the client side.
-* Server cannot handle closing of clients. If a client closes then the server will crash.
+# Mental Commands
+* Neutral
+* Push
+* Pull
+* More...
 
-# Todo List
-* Get Emotiv Gyro data on the server side (DONE)
-* Send Gyro data to the server side (DONE)
-* Move NAO head in relation to the Emotiv's Gyro data (DONE)
-* Take input of the emotiv 'commands' on the server: clench, wink, blink, etc. (DONE)
-* Send command to nao robot. (DONE)
-* Robot will output what you're doing. (DONE)
+# Problems
+* Server-Client code is not the best, packet sizes are not dynamic, it will always send 256 bytes of data. 'Filler' characters are removed on the client side.
+* Server cannot handle closing of clients. If a client closes then the server will crash.
