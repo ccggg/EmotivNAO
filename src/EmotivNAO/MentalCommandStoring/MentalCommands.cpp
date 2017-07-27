@@ -180,6 +180,9 @@ const char *byte_to_binary(long x) {
 	return b;
 }
 
+/*
+Load profile from the local directory
+*/ 
 void loadProfile(int userID) {
 	if (IEE_LoadUserProfile(userID, profileNameForLoading.c_str()) == EDK_OK)
 		cout << "Load Profile : done" << endl;
@@ -208,13 +211,13 @@ void showCurrentActionPower(EmoStateHandle eState) {
 void setActiveActions(int userID) {
 	ulong action1 = (ulong)IEE_MentalCommandAction_t::MC_PUSH;
 	ulong action2 = (ulong)IEE_MentalCommandAction_t::MC_PULL;
-	ulong listAction = action1 | action2;
+	ulong listAction =  action1 | action2;
 
 	int errorCode = EDK_OK;
 	errorCode = IEE_MentalCommandSetActiveActions(userID, listAction);
 
 	if (errorCode == EDK_OK) {
-		cout << "Setting MentalCommand active actions (MC_PUSH | MC_PULL) for user " << userID << endl;
+		cout << "Setting MentalCommand active actions Neutral, Push and Pull for user " << userID << endl;
 	}
 	else cout << "Setting MentalCommand active actions error: " << errorCode;
 }
@@ -233,15 +236,18 @@ void setMentalCommandActions(int headsetID, IEE_MentalCommandAction_t action) {
 void trainMentalCommandActions(int headsetID) {
 	if (actionTraining == 1) {
 		setMentalCommandActions(headsetID, MC_PUSH);
-
-		actionTraining++;
+		//setMentalCommandActions(headsetID, MC_PULL);
+		//actionTraining++;
+		return;
+	} else if (actionTraining == 2) {
+		setMentalCommandActions(headsetID, MC_PULL);
 		return;
 	}
 
 	if (IEE_SaveUserProfile(headsetID, profileNameForSaving.c_str()) == EDK_OK) {
-		cout << endl << "Save Profile: done";
+		cout << endl << "PROFILE SAVED";
 	}
-	else cout << endl << "Can't save profile";
+	else cout << endl << "ERROR SAVING PROFILE";
 }
 
 void handleMentalCommandEvent(ostream& os, EmoEngineEventHandle MentalCommandEvent) {
@@ -249,7 +255,6 @@ void handleMentalCommandEvent(ostream& os, EmoEngineEventHandle MentalCommandEve
 	unsigned int userID = 0;
 	IEE_EmoEngineEventGetUserId(MentalCommandEvent, &userID);
 	IEE_MentalCommandEvent_t eventType = IEE_MentalCommandEventGetType(MentalCommandEvent);
-
 
 	switch (eventType) {
 
@@ -278,6 +283,7 @@ void handleMentalCommandEvent(ostream& os, EmoEngineEventHandle MentalCommandEve
 	case IEE_MentalCommandTrainingCompleted: {
 		os << endl << "MentalCommand training for user " << userID << " COMPLETED!" << endl;
 		actionTraining++;
+		cout << actionTraining << endl;
 		trainMentalCommandActions(userID);
 		break;
 	}
