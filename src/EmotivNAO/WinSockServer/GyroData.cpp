@@ -1,14 +1,3 @@
-/****************************************************************************
-**
-** Copyright 2015 by Emotiv. All rights reserved
-** Example - GyroData
-** This example allows built-in 2-axis gyroscope position
-** Simply turn your head from left to right, up and down.
-** You will also notice the red indicator dot move in accordance with
-** the movement of your head/gyroscope
-**
-****************************************************************************/
-
 #ifdef _WIN32
 #include <windows.h>
 #include <conio.h>

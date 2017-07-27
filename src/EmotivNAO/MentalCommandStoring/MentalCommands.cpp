@@ -168,6 +168,18 @@ int main(int argc, char** argv) {
 	return 0;
 }
 
+const char *byte_to_binary(long x) {
+	static char b[9];
+	b[0] = '\0';
+
+	int z;
+	for (z = 8192; z > 0; z >>= 1) {
+		strcat(b, ((x & z) == z) ? "1" : "0");
+	}
+
+	return b;
+}
+
 void loadProfile(int userID) {
 	if (IEE_LoadUserProfile(userID, profileNameForLoading.c_str()) == EDK_OK)
 		cout << "Load Profile : done" << endl;
@@ -298,16 +310,4 @@ void handleMentalCommandEvent(ostream& os, EmoEngineEventHandle MentalCommandEve
 		break;
 	}
 	}
-}
-
-const char *byte_to_binary(long x) {
-	static char b[9];
-	b[0] = '\0';
-
-	int z;
-	for (z = 8192; z > 0; z >>= 1) {
-		strcat(b, ((x & z) == z) ? "1" : "0");
-	}
-
-	return b;
 }

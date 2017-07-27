@@ -11,6 +11,8 @@
 extern int startGyro();
 extern int startExpression();
 
+using namespace std;
+
 // Only 1 connection is required as there is only 1 robot
 SOCKET Connections[100];
 int ConnectionCounter = 0;
@@ -27,10 +29,10 @@ void ClientHandlerThread(int index) {
 
 			//Don't need to send the message back to the same client.
 			if (i == index) {
-				std::cout << "Message from Client: ";
-				std::cout << index;
-				std::cout << " >> ";
-				std::cout << buffer << std::endl;
+				cout << "Message from Client: ";
+				cout << index;
+				cout << " >> ";
+				cout << buffer << endl;
 				continue;
 			}
 
@@ -46,50 +48,50 @@ int yCoord = 0;
 
 void ServerMessageThread() {
 	char Msg[256];
-	std::string rawInput;
+	string rawInput;
 	while (true) {
-		//std::string currentFaceCommand = faceCommand;
-		std::cout << faceCommand << std::endl;
+		//string currentFaceCommand = faceCommand;
+		cout << faceCommand << endl;
 
-		int length = std::string(("a," + std::to_string(xCoord) + "," + std::to_string(yCoord) + "|").c_str()).length();
-		sprintf(Msg, std::string("a," + std::to_string(xCoord) + "," + std::to_string(yCoord) + "|").c_str());
+		int length = string(("a," + to_string(xCoord) + "," + to_string(yCoord) + "|").c_str()).length();
+		sprintf(Msg, string("a," + to_string(xCoord) + "," + to_string(yCoord) + "|").c_str());
 
 		if (faceCommand == "n") {
-			int length = std::string(("n," + std::to_string(xCoord) + "," + std::to_string(yCoord) + "|").c_str()).length();
-			sprintf(Msg, std::string("n," + std::to_string(xCoord) + "," + std::to_string(yCoord) + "|").c_str());
+			int length = std::string(("n," + to_string(xCoord) + "," + to_string(yCoord) + "|").c_str()).length();
+			sprintf(Msg, std::string("n," + to_string(xCoord) + "," + to_string(yCoord) + "|").c_str());
 		}
 		else if (faceCommand == "y") {
-			int length = std::string(("y," + std::to_string(xCoord) + "," + std::to_string(yCoord) + "|").c_str()).length();
-			sprintf(Msg, std::string("y," + std::to_string(xCoord) + "," + std::to_string(yCoord) + "|").c_str());
+			int length = std::string(("y," + to_string(xCoord) + "," + to_string(yCoord) + "|").c_str()).length();
+			sprintf(Msg, std::string("y," + to_string(xCoord) + "," + to_string(yCoord) + "|").c_str());
 		}
 		else if (faceCommand == "t") {
-			int length = std::string(("t," + std::to_string(xCoord) + "," + std::to_string(yCoord) + "|").c_str()).length();
-			sprintf(Msg, std::string("t," + std::to_string(xCoord) + "," + std::to_string(yCoord) + "|").c_str());
+			int length = std::string(("t," + to_string(xCoord) + "," + to_string(yCoord) + "|").c_str()).length();
+			sprintf(Msg, std::string("t," + to_string(xCoord) + "," + to_string(yCoord) + "|").c_str());
 		}
 		else if (faceCommand == "f") {
-			int length = std::string(("f," + std::to_string(xCoord) + "," + std::to_string(yCoord) + "|").c_str()).length();
-			sprintf(Msg, std::string("f," + std::to_string(xCoord) + "," + std::to_string(yCoord) + "|").c_str());
+			int length = std::string(("f," + to_string(xCoord) + "," + to_string(yCoord) + "|").c_str()).length();
+			sprintf(Msg, std::string("f," + to_string(xCoord) + "," + to_string(yCoord) + "|").c_str());
 		}
 		else if (faceCommand == "s") {
-			int length = std::string(("s," + std::to_string(xCoord) + "," + std::to_string(yCoord) + "|").c_str()).length();
-			sprintf(Msg, std::string("s," + std::to_string(xCoord) + "," + std::to_string(yCoord) + "|").c_str());
+			int length = std::string(("s," + to_string(xCoord) + "," + to_string(yCoord) + "|").c_str()).length();
+			sprintf(Msg, std::string("s," + to_string(xCoord) + "," + to_string(yCoord) + "|").c_str());
 		}
 		else {
-			int length = std::string(("a," + std::to_string(xCoord) + "," + std::to_string(yCoord) + "|").c_str()).length();
-			sprintf(Msg, std::string("a," + std::to_string(xCoord) + "," + std::to_string(yCoord) + "|").c_str());
+			int length = std::string(("a," + to_string(xCoord) + "," + to_string(yCoord) + "|").c_str()).length();
+			sprintf(Msg, std::string("a," + to_string(xCoord) + "," + to_string(yCoord) + "|").c_str());
 		}
 
-		//std::getline(std::cin, rawInput);
+		//getline(cin, rawInput);
 		Sleep(25);
-		//int length = std::string((faceCommand + "," + std::to_string(xCoord) + "," + std::to_string(yCoord) + "|").c_str()).length();
+		//int length = string((faceCommand + "," + to_string(xCoord) + "," + to_string(yCoord) + "|").c_str()).length();
 
 		//Convert string to char array
 		//sprintf(Msg, rawInput.c_str());
-		//sprintf(Msg, std::string(faceCommand + "," + std::to_string(xCoord) + "," + std::to_string(yCoord) + "|").c_str());
+		//sprintf(Msg, string(faceCommand + "," + to_string(xCoord) + "," + to_string(yCoord) + "|").c_str());
 
 		for (int i = 0; i < ConnectionCounter; i++) {
 			//if(i == 0)
-				//std::cout << Msg << std::endl;
+				//cout << Msg << endl;
 
 			send(Connections[i], Msg, length, NULL);
 		}
@@ -101,24 +103,29 @@ void GyroCoordinate() {
 		xCoord = xmax / 96;
 		yCoord = ymax / 96;
 
-		//std::cout << xCoord << std::endl;
-		//std::cout << yCoord << std::endl;
+		//cout << xCoord << endl;
+		//cout << yCoord << endl;
 	}
 }
 
 int main(int argc, char** argv) {
+	/* Create thread for Gyro */
 	CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)startGyro, NULL, NULL, NULL);
+
+	/* Create thread for getting Gyro coordinates */
 	CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)GyroCoordinate, NULL, NULL, NULL);
+
+	/* Create thread for facial expression */
 	CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)startExpression, NULL, NULL, NULL);
 
-	std::cout << "STARTING SERVER!" << std::endl;
+	cout << "STARTING SERVER!" << endl;
 
 	WSAData wsaData;
 	WORD DllVersion = MAKEWORD(2, 1);
 
 	// If WSAStartup returns anything other than 0 then there is an error.
 	if (WSAStartup(DllVersion, &wsaData) != 0) {
-		std::cout << "STARTUP FAILED!" << std::endl;
+		cout << "STARTUP FAILED!" << endl;
 		exit(1);
 	}
 
@@ -132,17 +139,17 @@ int main(int argc, char** argv) {
 	bind(sListen, (SOCKADDR*)&addr, sizeof(addr));
 	listen(sListen, SOMAXCONN);
 
-	std::cout << "WAIT FOR CONNECTION" << std::endl;
+	cout << "WAIT FOR CONNECTION" << endl;
 
 	SOCKET newConnection;
 	for (int i = 0; i < 100; i++) {
 		newConnection = accept(sListen, (SOCKADDR*)&addr, &addrlen);
 		if (newConnection == 0) {
-			std::cout << "FAILED CONNECTION!" << std::endl;
+			cout << "FAILED CONNECTION!" << endl;
 		} else {
-			std::cout << "SUCCESSFUL CONNECTION!" << std::endl;
+			cout << "SUCCESSFUL CONNECTION!" << endl;
 
-			std::cout << "Type a message to send to clients!" << std::endl;
+			cout << "Type a message to send to clients!" << endl;
 			char Msg[256] = "head,0.0,0.0";
 			send(newConnection, Msg, sizeof(Msg), NULL);
 			Connections[i] = newConnection;
