@@ -41,18 +41,22 @@ while not_connected:
 
 def client_thread():
     old_exp = "na"
+    old_act = "na"
     while True:
         data = sock.recv(256)
         data = ''.join(data.partition('|')[0:2])
         data = data.replace('|', '')
         print '>> ', data
         try:
-            exp_type,x1,y1 = data.split(',')
+            exp_type,action,action_power,x1,y1 = data.split(',')
         except ValueError:
             continue
         print exp_type
         print repr(x1.rstrip('\x00'))
         print repr(y1.rstrip('\x00'))
+
+        print(action)
+        print(action_power)
 
         x1 = x1.rstrip('\x00')
         y1 = y1.rstrip('\x00')
@@ -61,7 +65,7 @@ def client_thread():
         gyro_thread.setDaemon(True)
         gyro_thread.start()
 
-        #GyroNAOHead.ControlRobot(float(x1), float(y1))
+        GyroNAOHead.ControlRobot(float(x1), float(y1))
 
         if exp_type != old_exp:
             if exp_type.lower() == 'n':
@@ -83,12 +87,24 @@ def client_thread():
                 say_message = ""
                 print "Don't know"
 
+        if action.lower() != old_act:
+            if action.lower() == 'n':
+                say_message = say_message + " and your brain is neutral."
+            elif action.lower() == 'p':
+                say_message = say_message + " and you are thinking push."
+            elif action.lower() == 'l':
+                say_message = say_message + " and you are thinking pull."
+            else:
+                say_message = say_message
+
+        if say_message != "":
             say_thread = Thread(target = NAOSay.TextToSpeech(say_message))
             say_thread.setDaemon(True)
             say_thread.start()
 
         old_exp = exp_type
-        #NAOSay.TextToSpeech(say_message)
+        old_act = action
+        NAOSay.TextToSpeech(say_message)
 		#output_nao(data)
 
 def input_thread():

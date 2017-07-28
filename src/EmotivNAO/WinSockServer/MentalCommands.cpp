@@ -21,6 +21,8 @@ int _kbhit(void);
 #include "Iedk.h"
 #include "IedkErrorCode.h"
 
+#include "MentalCommands.h"
+
 #ifdef __APPLE__
 int _kbhit(void)
 {
@@ -74,11 +76,16 @@ void setActiveActions(int userID);
 void setMentalCommandActions(int, IEE_MentalCommandAction_t);
 int actionTraining;
 
+bool mentalCommandsOn = true;
+
 /* Saving and Loading directories for the Mental Data */
 string profileNameForLoading = "G:/MentalData/1/161.emu";
 string profileNameForSaving = "G:/MentalData/1/161.emu";
 
-int main(int argc, char** argv) {
+char action = 'n';
+float actionPower = 0;
+
+void startMental(int selectedOption) {
 	/*
 	Start the EmoEngine and the EmoState
 	*/
@@ -86,21 +93,21 @@ int main(int argc, char** argv) {
 	EmoStateHandle eState = IEE_EmoStateCreate();
 
 	// Unique ID for the current user, should be changed if different people are training the headset.
-	unsigned int userID = 0;
-	const unsigned short composerPort = 1726; //Not needed
-	int option = 0;
+	unsigned int userID = 5;
+	const unsigned short composerPort = 1726;
+	int option = selectedOption;
 	int state = 0;
 	bool isUserAdded = false;
 	string input;
 	actionTraining = 0;
 
-	cout << "1. Display current Mental Actions" << "\n";
+	/*cout << "1. Display current Mental Actions" << "\n";
 	cout << "2. Train Mental Actions" << "\n";
 	cout << ">> ";
 
-	
+
 	getline(cin, input, '\n');
-	option = atoi(input.c_str());
+	option = atoi(input.c_str());*/
 
 	if (IEE_EngineConnect() != EDK_OK) {
 		throw runtime_error("Emotiv Engine start up failed.");
@@ -145,7 +152,7 @@ int main(int argc, char** argv) {
 				break;
 			}
 
-			// Handle MentalCommand training related event
+									  // Handle MentalCommand training related event
 			case IEE_MentalCommandEvent: {
 				handleMentalCommandEvent(cout, eEvent);
 				//trainMentalCommandActions(userID);
@@ -163,9 +170,6 @@ int main(int argc, char** argv) {
 	IEE_EngineDisconnect();
 	IEE_EmoStateFree(eState);
 	IEE_EmoEngineEventFree(eEvent);
-
-	//Exit Program
-	return 0;
 }
 
 const char *byte_to_binary(long x) {
@@ -182,7 +186,7 @@ const char *byte_to_binary(long x) {
 
 /*
 Load profile from the local directory
-*/ 
+*/
 void loadProfile(int userID) {
 	if (IEE_LoadUserProfile(userID, profileNameForLoading.c_str()) == EDK_OK)
 		cout << "Load Profile : done" << endl;
@@ -199,19 +203,20 @@ void showTrainedActions(int userID) {
 
 void showCurrentActionPower(EmoStateHandle eState) {
 	IEE_MentalCommandAction_t eeAction = IS_MentalCommandGetCurrentAction(eState);
-	float actionPower = IS_MentalCommandGetCurrentActionPower(eState);
+	float currActionPower = IS_MentalCommandGetCurrentActionPower(eState);
+	actionPower = currActionPower;
 
 	switch (eeAction) {
-		case MC_NEUTRAL: { cout << "Neutral" << " : " << actionPower << "; \n"; break; }
-		case MC_PUSH: { cout << "Push" << " : " << actionPower << "; \n"; break; }
-		case MC_PULL: { cout << "Pull" << " : " << actionPower << "; \n"; break; }
+		case MC_NEUTRAL: { cout << "Neutral" << " : " << currActionPower << "; \n"; action = 'n'; break; }
+		case MC_PUSH: { cout << "Push" << " : " << currActionPower << "; \n"; action = 'p';  break; }
+		case MC_PULL: { cout << "Pull" << " : " << currActionPower << "; \n"; action = 'l'; break; }
 	}
 }
 
 void setActiveActions(int userID) {
 	ulong action1 = (ulong)IEE_MentalCommandAction_t::MC_PUSH;
 	ulong action2 = (ulong)IEE_MentalCommandAction_t::MC_PULL;
-	ulong listAction =  action1 | action2;
+	ulong listAction = action1 | action2;
 
 	int errorCode = EDK_OK;
 	errorCode = IEE_MentalCommandSetActiveActions(userID, listAction);
@@ -227,9 +232,9 @@ void setMentalCommandActions(int headsetID, IEE_MentalCommandAction_t action) {
 	errorCode = IEE_MentalCommandSetTrainingControl(headsetID, MC_START);
 
 	switch (action) {
-		case MC_NEUTRAL: { cout << endl << "TRAINING NEUTRAL" << endl; break; }
-		case MC_PUSH: { cout << endl << "TRAINING PUSH" << endl; break; }
-		case MC_PULL: { cout << endl << "TRAINING PULL" << endl; break; }
+	case MC_NEUTRAL: { cout << endl << "TRAINING NEUTRAL" << endl; break; }
+	case MC_PUSH: { cout << endl << "TRAINING PUSH" << endl; break; }
+	case MC_PULL: { cout << endl << "TRAINING PULL" << endl; break; }
 	}
 }
 
@@ -239,7 +244,8 @@ void trainMentalCommandActions(int headsetID) {
 		//setMentalCommandActions(headsetID, MC_PULL);
 		//actionTraining++;
 		return;
-	} else if (actionTraining == 2) {
+	}
+	else if (actionTraining == 2) {
 		setMentalCommandActions(headsetID, MC_PULL);
 		return;
 	}
@@ -258,62 +264,62 @@ void handleMentalCommandEvent(ostream& os, EmoEngineEventHandle MentalCommandEve
 
 	switch (eventType) {
 
-		case IEE_MentalCommandTrainingStarted: {
-			os << endl << "MentalCommand training for user " << userID << " STARTED!" << endl;
-			break;
-		}
+	case IEE_MentalCommandTrainingStarted: {
+		os << endl << "MentalCommand training for user " << userID << " STARTED!" << endl;
+		break;
+	}
 
-		case IEE_MentalCommandTrainingSucceeded: {
-			os << endl << "MentalCommand training for user " << userID << " SUCCEEDED!" << endl;
-			IEE_MentalCommandSetTrainingControl(userID, MC_ACCEPT);
-	#ifdef _WIN32
-			Sleep(3000);
-	#endif
-	#if linux || __APPLE__
-			sleep(3);
-	#endif
-			break;
-		}
+	case IEE_MentalCommandTrainingSucceeded: {
+		os << endl << "MentalCommand training for user " << userID << " SUCCEEDED!" << endl;
+		IEE_MentalCommandSetTrainingControl(userID, MC_ACCEPT);
+#ifdef _WIN32
+		Sleep(3000);
+#endif
+#if linux || __APPLE__
+		sleep(3);
+#endif
+		break;
+	}
 
-		case IEE_MentalCommandTrainingFailed: {
-			os << endl << "MentalCommand training for user " << userID << " FAILED!" << endl;
-			break;
-		}
+	case IEE_MentalCommandTrainingFailed: {
+		os << endl << "MentalCommand training for user " << userID << " FAILED!" << endl;
+		break;
+	}
 
-		case IEE_MentalCommandTrainingCompleted: {
-			os << endl << "MentalCommand training for user " << userID << " COMPLETED!" << endl;
-			actionTraining++;
-			cout << actionTraining << endl;
-			trainMentalCommandActions(userID);
-			break;
-		}
+	case IEE_MentalCommandTrainingCompleted: {
+		os << endl << "MentalCommand training for user " << userID << " COMPLETED!" << endl;
+		actionTraining++;
+		cout << actionTraining << endl;
+		trainMentalCommandActions(userID);
+		break;
+	}
 
-		case IEE_MentalCommandTrainingRejected: {
-			os << endl << "MentalCommand training for user " << userID << " REJECTED!" << endl;
-			break;
-		}
+	case IEE_MentalCommandTrainingRejected: {
+		os << endl << "MentalCommand training for user " << userID << " REJECTED!" << endl;
+		break;
+	}
 
-		case IEE_MentalCommandTrainingReset: {
-			os << endl << "MentalCommand training for user " << userID << " RESET!" << endl;
-			break;
-		}
+	case IEE_MentalCommandTrainingReset: {
+		os << endl << "MentalCommand training for user " << userID << " RESET!" << endl;
+		break;
+	}
 
-		case IEE_MentalCommandAutoSamplingNeutralCompleted: {
-			os << endl << "MentalCommand auto sampling neutral for user " << userID << " COMPLETED!" << endl;
-			break;
-		}
+	case IEE_MentalCommandAutoSamplingNeutralCompleted: {
+		os << endl << "MentalCommand auto sampling neutral for user " << userID << " COMPLETED!" << endl;
+		break;
+	}
 
-		case IEE_MentalCommandSignatureUpdated: {
-			os << endl << "MentalCommand signature for user " << userID << " UPDATED!" << endl;
-			break;
-		}
+	case IEE_MentalCommandSignatureUpdated: {
+		os << endl << "MentalCommand signature for user " << userID << " UPDATED!" << endl;
+		break;
+	}
 
-		case IEE_MentalCommandNoEvent:
-			break;
+	case IEE_MentalCommandNoEvent:
+		break;
 
-		default: {
-			assert(0);
-			break;
-		}
+	default: {
+		assert(0);
+		break;
+	}
 	}
 }

@@ -5,11 +5,20 @@
 #include <Winsock2.h>
 #include <string>
 #include <iostream>
+#include <fstream>
+#include <sstream>
 #include "GyroData.h"
 #include "FacialExpression.h"
+#include "MentalCommands.h"
+
+#ifdef _WIN32
+#include <conio.h>
+#include <windows.h>
+#endif
 
 extern int startGyro();
 extern int startExpression();
+extern void startMental(int selectedOption);
 
 using namespace std;
 
@@ -46,6 +55,9 @@ void ClientHandlerThread(int index) {
 int xCoord = 0;
 int yCoord = 0;
 
+char currAction = 'n';
+int currActionPower = 0;
+
 void ServerMessageThread() {
 	char Msg[256];
 	string rawInput;
@@ -53,32 +65,32 @@ void ServerMessageThread() {
 		//string currentFaceCommand = faceCommand;
 		cout << faceCommand << endl;
 
-		int length = string(("a," + to_string(xCoord) + "," + to_string(yCoord) + "|").c_str()).length();
-		sprintf(Msg, string("a," + to_string(xCoord) + "," + to_string(yCoord) + "|").c_str());
+		int length = string((string(1, 'a') + "," + string(1, currAction) + "," + to_string(currActionPower) + "," + to_string(xCoord) + "," + to_string(yCoord) + "|").c_str()).length();
+		sprintf(Msg, string(string(1, 'a') + "," + string(1, currAction) + "," + to_string(currActionPower) + "," + to_string(xCoord) + "," + to_string(yCoord) + "|").c_str());
 
 		if (faceCommand == "n") {
-			int length = std::string(("n," + to_string(xCoord) + "," + to_string(yCoord) + "|").c_str()).length();
-			sprintf(Msg, std::string("n," + to_string(xCoord) + "," + to_string(yCoord) + "|").c_str());
+			int length = string((string(1, 'n') + "," + string(1, currAction) + "," + to_string(currActionPower) + "," + to_string(xCoord) + "," + to_string(yCoord) + "|").c_str()).length();
+			sprintf(Msg, string(string(1, 'n') + "," + string(1, currAction) + "," + to_string(currActionPower) + "," + to_string(xCoord) + "," + to_string(yCoord) + "|").c_str());
 		}
 		else if (faceCommand == "y") {
-			int length = std::string(("y," + to_string(xCoord) + "," + to_string(yCoord) + "|").c_str()).length();
-			sprintf(Msg, std::string("y," + to_string(xCoord) + "," + to_string(yCoord) + "|").c_str());
+			int length = string((string(1, 'y') + "," + string(1, currAction) + "," + to_string(currActionPower) + "," + to_string(xCoord) + "," + to_string(yCoord) + "|").c_str()).length();
+			sprintf(Msg, string(string(1, 'y') + "," + string(1, currAction) + "," + to_string(currActionPower) + "," + to_string(xCoord) + "," + to_string(yCoord) + "|").c_str());
 		}
 		else if (faceCommand == "t") {
-			int length = std::string(("t," + to_string(xCoord) + "," + to_string(yCoord) + "|").c_str()).length();
-			sprintf(Msg, std::string("t," + to_string(xCoord) + "," + to_string(yCoord) + "|").c_str());
+			int length = string((string(1, 't') + "," + string(1, currAction) + "," + to_string(currActionPower) + "," + to_string(xCoord) + "," + to_string(yCoord) + "|").c_str()).length();
+			sprintf(Msg, string(string(1, 't') + "," + string(1, currAction) + "," + to_string(currActionPower) + "," + to_string(xCoord) + "," + to_string(yCoord) + "|").c_str());
 		}
 		else if (faceCommand == "f") {
-			int length = std::string(("f," + to_string(xCoord) + "," + to_string(yCoord) + "|").c_str()).length();
-			sprintf(Msg, std::string("f," + to_string(xCoord) + "," + to_string(yCoord) + "|").c_str());
+			int length = string((string(1, 'f') + "," + string(1, currAction) + "," + to_string(currActionPower) + "," + to_string(xCoord) + "," + to_string(yCoord) + "|").c_str()).length();
+			sprintf(Msg, string(string(1, 'f') + "," + string(1, currAction) + "," + to_string(currActionPower) + "," + to_string(xCoord) + "," + to_string(yCoord) + "|").c_str());
 		}
 		else if (faceCommand == "s") {
-			int length = std::string(("s," + to_string(xCoord) + "," + to_string(yCoord) + "|").c_str()).length();
-			sprintf(Msg, std::string("s," + to_string(xCoord) + "," + to_string(yCoord) + "|").c_str());
+			int length = string((string(1, 's') + "," + string(1, currAction) + "," + to_string(currActionPower) + "," + to_string(xCoord) + "," + to_string(yCoord) + "|").c_str()).length();
+			sprintf(Msg, string(string(1, 's') + "," + string(1, currAction) + "," + to_string(currActionPower) + "," + to_string(xCoord) + "," + to_string(yCoord) + "|").c_str());
 		}
 		else {
-			int length = std::string(("a," + to_string(xCoord) + "," + to_string(yCoord) + "|").c_str()).length();
-			sprintf(Msg, std::string("a," + to_string(xCoord) + "," + to_string(yCoord) + "|").c_str());
+			int length = string((string(1, 'a') + "," + string(1, currAction) + "," + to_string(currActionPower) + "," + to_string(xCoord) + "," + to_string(yCoord) + "|").c_str()).length();
+			sprintf(Msg, string(string(1, 'a') + "," + string(1, currAction) + "," + to_string(currActionPower) + "," + to_string(xCoord) + "," + to_string(yCoord) + "|").c_str());
 		}
 
 		//getline(cin, rawInput);
@@ -98,25 +110,32 @@ void ServerMessageThread() {
 	}
 }
 
-void GyroCoordinate() {
+void UpdateValues() {
 	while (true) {
 		xCoord = xmax / 96;
 		yCoord = ymax / 96;
+
+		currAction = action;
+		currActionPower = actionPower;
 
 		//cout << xCoord << endl;
 		//cout << yCoord << endl;
 	}
 }
 
-int main(int argc, char** argv) {
+void initServer(int option) {
 	/* Create thread for Gyro */
 	CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)startGyro, NULL, NULL, NULL);
 
 	/* Create thread for getting Gyro coordinates */
-	CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)GyroCoordinate, NULL, NULL, NULL);
+	CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)UpdateValues, NULL, NULL, NULL);
 
 	/* Create thread for facial expression */
 	CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)startExpression, NULL, NULL, NULL);
+
+	if (mentalCommandsOn) {
+		CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)startMental, (LPVOID)option, NULL, NULL);
+	}
 
 	cout << "STARTING SERVER!" << endl;
 
@@ -160,7 +179,30 @@ int main(int argc, char** argv) {
 			CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)ServerMessageThread, (LPVOID)(i), NULL, NULL);
 		}
 	}
+}
 
-	system("pause");
-	return 0;
+int main(int argc, char** argv) {
+	int option = 0;
+	string input;
+
+	if (!mentalCommandsOn) {
+		cout << "WARNING: Mental Commands are currently disabled.\nTo enable them set mentalCommandsOn to true in MentalCommands.cpp" << endl;
+	}
+
+	cout << "1. Run Server" << endl;
+	cout << "2. Train Headset Mental Commands" << endl;
+	cout << ">> ";
+
+	getline(cin, input, '\n');
+	option = atoi(input.c_str());
+
+	if (option == 1) {
+		initServer(option);
+	} else if(option == 2) {
+		if (mentalCommandsOn) {
+			startMental(option);
+		} else {
+			cout << "Mental Commands are currently disabled" << endl;
+		}
+	}
 }

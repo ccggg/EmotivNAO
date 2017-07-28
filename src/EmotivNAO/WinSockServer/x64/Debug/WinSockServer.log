@@ -1,20 +1,17 @@
 ﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(368,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
   Server.cpp
-g:\emotivnao2\src\emotivnao\winsockserver\server.cpp(54): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-g:\emotivnao2\src\emotivnao\winsockserver\server.cpp(58): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-g:\emotivnao2\src\emotivnao\winsockserver\server.cpp(62): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-g:\emotivnao2\src\emotivnao\winsockserver\server.cpp(66): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-g:\emotivnao2\src\emotivnao\winsockserver\server.cpp(70): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-g:\emotivnao2\src\emotivnao\winsockserver\server.cpp(74): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-g:\emotivnao2\src\emotivnao\winsockserver\server.cpp(78): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-g:\emotivnao2\src\emotivnao\winsockserver\server.cpp(101): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-g:\emotivnao2\src\emotivnao\winsockserver\server.cpp(102): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-g:\emotivnao2\src\emotivnao\winsockserver\server.cpp(152): warning C4312: 'type cast': conversion from 'int' to 'LPVOID' of greater size
-g:\emotivnao2\src\emotivnao\winsockserver\server.cpp(153): warning C4312: 'type cast': conversion from 'int' to 'LPVOID' of greater size
-  GyroData.cpp
-g:\emotivnao2\src\emotivnao\winsockserver\gyrodata.cpp(106): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
-  FacialExpression.cpp
-  FacialCommands.cpp
-  Generating Code...
-  WinSockServer.vcxproj -> G:\EmotivNAO2\src\EmotivNAO\WinSockServer\../../../emotiv-sdk/bin/win64\WinSockServer.exe
+f:\emotivnao2\src\emotivnao\winsockserver\server.cpp(68): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+f:\emotivnao2\src\emotivnao\winsockserver\server.cpp(72): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+f:\emotivnao2\src\emotivnao\winsockserver\server.cpp(76): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+f:\emotivnao2\src\emotivnao\winsockserver\server.cpp(80): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+f:\emotivnao2\src\emotivnao\winsockserver\server.cpp(84): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+f:\emotivnao2\src\emotivnao\winsockserver\server.cpp(88): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+f:\emotivnao2\src\emotivnao\winsockserver\server.cpp(92): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+f:\emotivnao2\src\emotivnao\winsockserver\server.cpp(115): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+f:\emotivnao2\src\emotivnao\winsockserver\server.cpp(116): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+f:\emotivnao2\src\emotivnao\winsockserver\server.cpp(119): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+f:\emotivnao2\src\emotivnao\winsockserver\server.cpp(137): warning C4312: 'type cast': conversion from 'int' to 'LPVOID' of greater size
+f:\emotivnao2\src\emotivnao\winsockserver\server.cpp(178): warning C4312: 'type cast': conversion from 'int' to 'LPVOID' of greater size
+f:\emotivnao2\src\emotivnao\winsockserver\server.cpp(179): warning C4312: 'type cast': conversion from 'int' to 'LPVOID' of greater size
+  WinSockServer.vcxproj -> F:\EmotivNAO2\src\EmotivNAO\WinSockServer\../../../emotiv-sdk/bin/win64\WinSockServer.exe
   WinSockServer.vcxproj -> ../../../emotiv-sdk/bin/win64\WinSockServer.pdb (Full PDB)
