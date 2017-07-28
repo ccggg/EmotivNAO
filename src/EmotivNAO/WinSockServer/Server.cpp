@@ -93,18 +93,9 @@ void ServerMessageThread() {
 			sprintf(Msg, string(string(1, 'a') + "," + string(1, currAction) + "," + to_string(currActionPower) + "," + to_string(xCoord) + "," + to_string(yCoord) + "|").c_str());
 		}
 
-		//getline(cin, rawInput);
 		Sleep(25);
-		//int length = string((faceCommand + "," + to_string(xCoord) + "," + to_string(yCoord) + "|").c_str()).length();
-
-		//Convert string to char array
-		//sprintf(Msg, rawInput.c_str());
-		//sprintf(Msg, string(faceCommand + "," + to_string(xCoord) + "," + to_string(yCoord) + "|").c_str());
 
 		for (int i = 0; i < ConnectionCounter; i++) {
-			//if(i == 0)
-				//cout << Msg << endl;
-
 			send(Connections[i], Msg, length, NULL);
 		}
 	}
